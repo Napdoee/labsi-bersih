@@ -1,58 +1,78 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Labsi Bersih
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Deskripsi Proyek
 
-## About Laravel
+**Labsi Bersih** adalah aplikasi manajemen sistem yang dibangun di atas kerangka kerja **Laravel 13** dan memanfaatkan **Filament Admin Panel v5** untuk mempermudah pengelolaan data (CRUD) serta tampilan dasbor administratif yang interaktif. 
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Aplikasi ini menggunakan modul Role-Based Access Control (RBAC) melalui integrasi paket **Spatie Laravel-Permission**, sehingga akses dapat dibatasi sesuai dengan peran (role) pengguna. Selain panel admin standar, aplikasi ini juga memiliki antarmuka dashboard kustom (non-Filament) yang dibangun dengan Blade templating dan Tailwind CSS, menggantikan setup bawaan Laravel Breeze.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Terdapat 4 jenis peran (Role) utama yang diimplementasikan dalam skenario pengelolaan (merujuk pada tabel/skema seed):
+- **Super Admin**: Memiliki akses ke segala aspek sistem tanpa batasan.
+- **Pak Adi**: Memiliki hak akses khusus untuk proses persetujuan dan pengawasan tingkat tinggi.
+- **Asisten**: Dapat mengelola operasional harian atau memvalidasi akses yang di bawahnya.
+- **Ketua Tingkat**: Pengguna level terendah dengan akses fungsional terbatas.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## Persyaratan Sistem
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Pastikan environment Anda telah terinstal hal-hal dasar di bawah ini sebelum melanjutkan instalasi:
+- **PHP** >= 8.3
+- **Composer** (Package Manager)
+- **Node.js** & **NPM** (Untuk manajemen aset Frontend Vite)
+- **Database** (MySQL / PostgreSQL / SQLite)
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+---
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+## Langkah Instalasi
 
-## Agentic Development
+Berikut adalah langkah-langkah untuk menyiapkan dan menjalankan aplikasi secara lokal. Aplikasi ini telah disiapkan untuk proses setup yang terotomatisasi via script `composer`.
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
-
+### 1. Dapatkan Kode Sumber
+Silakan *clone* repositori proyek ini ke dalam direktori komputer Anda.
 ```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+git clone <URL_REPOSITORY> labsi-bersih
+cd labsi-bersih
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+### 2. Setup Otomatis (Direkomendasikan)
+Anda dapat menggunakan script kustom yang sudah disiapkan di `composer.json` untuk mempercepat instalasi dependencies, pembuatan file `.env`, *generate key*, migrasi database dasar, serta instalasi dan *build* aset *frontend*.
 
-## Contributing
+Jalankan perintah berikut:
+```bash
+composer setup
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+**Sebagai Informasi**, script `composer setup` di balik layar menjalankan proses berikut secara berurutan:
+- `composer install`
+- *Copy* file `.env.example` menjadi `.env`
+- `php artisan key:generate`
+- `php artisan migrate --force`
+- `npm install --ignore-scripts`
+- `npm run build`
 
-## Code of Conduct
+> **Catatan:** Jangan lupa untuk menyesuaikan konfigurasi database Anda (nama DB, *username*, *password*) pada file `.env` sebelum menjalankan *seed* database jika Anda tidak menggunakan SQLite atau koneksi default.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### 3. Inisialisasi Role & Akses (Database Seeder)
+Sistem ini membutuhkan data *Role* dan konfigurasi pengguna (User) di awal untuk dapat melakukan *Login* dan mengakses dashboard/Filament admin. Jalankan *seeder* berikut:
 
-## Security Vulnerabilities
+```bash
+php artisan db:seed --class=RolesAndPermissionsSeeder
+```
+*(Catatan: Anda juga bisa menjalankan `php artisan db:seed` apabila Role seeder sudah dimasukkan ke dalam file `DatabaseSeeder.php` root).*
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### 4. Menjalankan Development Server
+Untuk mulai menjalankan aplikasi dalam mode pengembangan lokal (termasuk hot-reloading untuk aset Vite dan Queue Worker), jalankan:
 
-## License
+```bash
+composer dev
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Ini akan menjalankan perintah `php artisan serve`, Queue, dan `npm run dev` secara bersamaan (via utilitas *concurrently*).
+
+### 5. Mengakses Aplikasi
+Setelah server berhasil berjalan, Anda dapat mengakses URL berikut pada browser Anda:
+- **Halaman Utama / Dashboard Custom**: [http://localhost:8000](http://localhost:8000)
+- **Panel Admin Filament**: [http://localhost:8000/admin](http://localhost:8000/admin)
+
+Gunakan kredensial (Email & Password) dari seeder (hasil output dari `RolesAndPermissionsSeeder`) untuk menguji coba masuk ke dasbor dan panel akses aplikasi.
