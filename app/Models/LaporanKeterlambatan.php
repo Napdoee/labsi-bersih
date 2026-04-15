@@ -11,27 +11,35 @@ class LaporanKeterlambatan extends Model
     public $timestamps = false;
     protected $guarded = [];
 
-    // Relasi ke Mata Kuliah
-    public function mataKuliah()
+    /**
+     * Relasi ke Jadwal
+     */
+    public function jadwal()
     {
-        return $this->belongsTo(MataKuliah::class, 'id_matkul');
+        return $this->belongsTo(Jadwal::class, 'id_jadwal', 'id_jadwal');
     }
 
-    // Relasi ke Asisten yang terlambat
+    /**
+     * Relasi ke Asisten
+     */
     public function asisten()
     {
-        return $this->belongsTo(Asisten::class, 'id_asisten');
+        return $this->belongsTo(Asisten::class, 'id_asisten', 'id_asisten');
     }
 
-    // Relasi ke Kelas
+    /**
+     * Relasi ke Kelas
+     */
     public function kelas()
     {
-        return $this->belongsTo(Kelas::class, 'id_kelas');
+        return $this->belongsTo(Kelas::class, 'id_kelas', 'id_kelas');
     }
 
-    // Relasi ke User (Pelapor)
-    public function pelapor()
+    /**
+     * Relasi ke Mata Kuliah
+     */
+    public function mataKuliah()
     {
-        return $this->belongsTo(User::class, 'id_user');
+        return $this->belongsTo(MataKuliah::class, 'id_matkul', 'id_matkul');
     }
 }
