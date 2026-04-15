@@ -30,4 +30,12 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    /**
+     * Relasi One-to-One ke model Kelas
+     */
+    public function kelas()
+    {
+        return $this->hasOne(Kelas::class, 'id_user', 'id');
+    }
 }
