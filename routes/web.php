@@ -3,7 +3,6 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Kelas\KeterlambatanController;
-use App\Http\Controllers\Kelas\KeterlambatanController;
 
 Route::get('/', function () {
     return view('welcome');
