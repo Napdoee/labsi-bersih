@@ -35,8 +35,8 @@ return new class extends Migration
                   ->cascadeOnUpdate();
 
             $table->foreign('id_user')
-                  ->references('id_user')
-                  ->on('user')
+                  ->references('id')
+                  ->on('users')
                   ->cascadeOnDelete()
                   ->cascadeOnUpdate();
         });
