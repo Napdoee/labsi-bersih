@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use App\Services\KeterlambatanService;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -11,7 +12,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        // Mendaftarkan KeterlambatanService
+        $this->app->singleton(KeterlambatanService::class, function ($app) {
+            return new KeterlambatanService();
+        });
     }
 
     /**
