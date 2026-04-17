@@ -24,14 +24,14 @@ class LaporanKeterlambatansTable
                     ->label('Kelas Pelapor')
                     ->searchable()
                     ->sortable(),
-
-                TextColumn::make('jadwal.mataKuliah.nama_matkul')
-                    ->label('Mata Kuliah')
+                    
+                TextColumn::make('asisten.nama_asisten')
+                    ->label('Nama Asisten')
                     ->searchable()
                     ->sortable(),
 
-                TextColumn::make('asisten.nama_asisten')
-                    ->label('Nama Asisten')
+                TextColumn::make('jadwal.mataKuliah.nama_matkul')
+                    ->label('Mata Kuliah')
                     ->searchable()
                     ->sortable(),
 
@@ -56,7 +56,7 @@ class LaporanKeterlambatansTable
             ])
             ->recordActions([
                 ViewAction::make(),
-                EditAction::make(),
+                // EditAction::make(),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
