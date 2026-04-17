@@ -48,9 +48,9 @@ class LaporanKeterlambatanResource extends Resource
     {
         return [
             'index' => ListLaporanKeterlambatans::route('/'),
-            'create' => CreateLaporanKeterlambatan::route('/create'),
+            // 'create' => CreateLaporanKeterlambatan::route('/create'),
             'view' => ViewLaporanKeterlambatan::route('/{record}'),
-            'edit' => EditLaporanKeterlambatan::route('/{record}/edit'),
+            // 'edit' => EditLaporanKeterlambatan::route('/{record}/edit'),
         ];
     }
 }
