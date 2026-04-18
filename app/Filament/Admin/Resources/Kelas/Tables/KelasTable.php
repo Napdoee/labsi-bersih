@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Admin\Resources\Users\Tables;
+namespace App\Filament\Admin\Resources\Kelas\Tables;
 
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
@@ -8,26 +8,19 @@ use Filament\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
-class UsersTable
+class KelasTable
 {
     public static function configure(Table $table): Table
     {
         return $table
             ->columns([
-                TextColumn::make('username')
-                    ->searchable(),
-                TextColumn::make('created_at')
-                    ->dateTime()
+                TextColumn::make('id_kelas')
+                    ->label('ID')
+                    ->sortable(),
+                TextColumn::make('nama_kelas')
+                    ->label('Nama Kelas')
+                    ->searchable()
                     ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('roles.name')
-                    ->label('Roles')
-                    ->badge()
-                    ->searchable(),
             ])
             ->filters([
                 //
