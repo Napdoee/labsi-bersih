@@ -20,32 +20,28 @@ class DatabaseSeeder extends Seeder
 
         // Create a Super Admin user
         $superAdmin = User::factory()->create([
-            'name' => 'Super Admin',
-            'email' => 'admin@admin.com',
+            'username' => 'superadmin',
             'password' => bcrypt('password'),
         ]);
         $superAdmin->assignRole('super_admin');
 
         // Create a Pak Adi user
         $pakAdi = User::factory()->create([
-            'name' => 'Pak Adi',
-            'email' => 'pak_adi@admin.com',
+            'username' => 'pak_adi',
             'password' => bcrypt('password'),
         ]);
         $pakAdi->assignRole('pak_adi');
 
         // Create an Asisten
         $asisten = User::factory()->create([
-            'name' => 'Asisten Lab',
-            'email' => 'asisten@admin.com',
+            'username' => 'asisten',
             'password' => bcrypt('password'),
         ]);
         $asisten->assignRole('asisten');
 
         // Create a Ketua Tingkat
         $keti = User::factory()->create([
-            'name' => 'Ketua Tingkat',
-            'email' => 'keti@admin.com',
+            'username' => 'keti',
             'password' => bcrypt('password'),
         ]);
         $keti->assignRole('ketua_tingkat');

@@ -77,9 +77,8 @@ class DatabaseImportSeeder extends Seeder
         $mapIdAsisten = [];
         foreach ($dataAsisten as $data) {
             $user = User::firstOrCreate(
-                ['name' => $data['nim']],
+                ['username' => $data['nim']],
                 [
-                    'email'    => $data['nim'] . '@labsi.com',
                     'password' => Hash::make('Pass_' . substr($data['nim'], -5)), 
                 ]
             );
@@ -114,9 +113,8 @@ class DatabaseImportSeeder extends Seeder
         $mapIdKelas = [];
         foreach ($dataKelas as $data) {
             $user = User::firstOrCreate(
-                ['name' => $data['kode']], 
+                ['username' => $data['kode']], 
                 [
-                    'email'    => strtolower($data['kode']) . '@labsi.com',
                     'password' => Hash::make('Pass_' . str_replace('kelas', '', $data['kode'])),
                 ]
             );
