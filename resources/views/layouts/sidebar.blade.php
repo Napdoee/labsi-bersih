@@ -49,13 +49,6 @@
             Profil Akun
         </a>
     </div>
-
-    <!-- Upgrade Box (Optional) -->
-    <div class="p-4 mx-4 mb-4 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 text-white shadow-lg">
-        <h4 class="font-bold mb-1">Upgrade ke Pro</h4>
-        <p class="text-xs text-indigo-100 mb-3 leading-relaxed">Dapatkan fitur analisis lengkap dan performa prioritas.</p>
-        <button class="w-full py-2 bg-white text-indigo-600 font-semibold text-xs rounded-xl hover:bg-gray-50 transition shadow-sm">Pelajari Lebih Lanjut</button>
-    </div>
 </aside>
 
 <!-- Mobile Sidebar Backdrop -->

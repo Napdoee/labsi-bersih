@@ -43,10 +43,10 @@
                     <x-dropdown align="right" width="56">
                         <x-slot name="trigger">
                             <button class="flex items-center gap-3 p-1.5 border border-gray-100 rounded-full focus:outline-none transition hover:bg-gray-50 group hover:border-gray-200">
-                                <img class="object-cover w-8 h-8 rounded-full ring-2 ring-transparent group-hover:ring-indigo-100 transition shadow-sm" src="https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->name) }}&background=6366f1&color=fff&bold=true" alt="{{ Auth::user()->name }}">
+                                <img class="object-cover w-8 h-8 rounded-full ring-2 ring-transparent group-hover:ring-indigo-100 transition shadow-sm" src="https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->display_name) }}&background=6366f1&color=fff&bold=true" alt="{{ Auth::user()->display_name }}">
                                 <div class="hidden lg:flex flex-col text-left mr-2">
-                                    <span class="text-sm font-semibold text-gray-700 leading-tight">{{ Auth::user()->name }}</span>
-                                    <span class="text-[11px] font-medium text-gray-400">Administrator</span>
+                                    <span class="text-sm font-semibold text-gray-700 leading-tight">{{ Auth::user()->display_name }}</span>
+                                    <span class="text-[11px] font-medium text-gray-400">{{  Str::upper( Auth::user()->roles->first()->name ?? 'Null') }}</span>
                                 </div>
                                 <svg class="hidden lg:block w-4 h-4 text-gray-400 mr-1 group-hover:text-gray-600 transition" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
@@ -57,8 +57,8 @@
                         <x-slot name="content">
                             <!-- Mobile info -->
                             <div class="px-4 py-3 border-b border-gray-50 lg:hidden bg-gray-50/50">
-                                <p class="text-sm font-semibold text-gray-900 truncate">{{ Auth::user()->name }}</p>
-                                <p class="text-xs text-gray-500 truncate mt-0.5">{{ Auth::user()->email }}</p>
+                                <p class="text-sm font-semibold text-gray-900 truncate">{{ Auth::user()->display_name }}</p>
+                                <p class="text-xs text-gray-500 truncate mt-0.5">{{ Auth::user()->username }}</p>
                             </div>
                             
                             <x-dropdown-link :href="route('profile.edit')" class="flex items-center gap-3 py-2.5 text-sm font-medium text-gray-700 hover:text-indigo-600 hover:bg-indigo-50 transition">
