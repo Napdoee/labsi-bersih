@@ -29,6 +29,14 @@ class Jadwal extends Model
     }
 
     /**
+     * Relasi ke model Kelas
+     */
+    public function kelas()
+    {
+        return $this->belongsTo(Kelas::class, 'id_kelas', 'id_kelas');
+    }
+
+    /**
      * Relasi ke model Asisten melalui DetailAsisten
      */
     public function asistens()
