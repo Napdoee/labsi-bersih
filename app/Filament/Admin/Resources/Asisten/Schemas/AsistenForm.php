@@ -17,7 +17,7 @@ class AsistenForm
                     ->required(),
                 Select::make('id_user')
                     ->label('User')
-                    ->relationship('user', 'name')
+                    ->relationship('user', 'username')
                     ->searchable()
                     ->preload()
                     ->required(),

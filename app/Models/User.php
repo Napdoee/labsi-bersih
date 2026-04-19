@@ -39,11 +39,30 @@ class User extends Authenticatable implements FilamentUser, HasName
     }
 
     /**
+     * Relasi One-to-One ke model Asisten
+     */
+    public function asisten()
+    {
+        return $this->hasOne(Asisten::class, 'id_user', 'id');
+    }
+
+    /**
      * Relasi One-to-One ke model Kelas
      */
     public function kelas()
     {
         return $this->hasOne(Kelas::class, 'id_user', 'id');
+    }
+
+    /**
+     * Accessor: menampilkan nama_asisten atau nama_kelas jika tersedia,
+     * fallback ke username.
+     */
+    public function getDisplayNameAttribute(): string
+    {
+        return $this->asisten?->nama_asisten
+            ?? $this->kelas?->nama_kelas
+            ?? $this->username;
     }
 
     /**
