@@ -8,9 +8,8 @@
 <aside class="hidden lg:flex flex-col w-[280px] h-screen border-r border-gray-100 bg-white shadow-[2px_0_8px_-4px_rgba(0,0,0,0.05)] z-20">
     <!-- Logo -->
     <div class="flex items-center h-20 px-8 border-b border-gray-50">
-        <a href="{{ route('dashboard') }}" class="flex items-center gap-3 font-bold text-2xl text-indigo-600">
-            <x-application-logo class="block h-9 w-auto fill-current" />
-            <span class="tracking-tight">{{ config('app.name', 'Laravel') }}</span>
+        <a href="{{ route('dashboard') }}" class="flex items-center justify-center w-full">
+            <img src="{{ asset('logo.jpeg') }}" alt="Logo" class="w-auto h-20" />
         </a>
     </div>
     
@@ -79,9 +78,8 @@
 >
     <!-- Logo & Close Button -->
     <div class="flex items-center justify-between h-20 px-6 border-b border-gray-50">
-        <a href="{{ route('dashboard') }}" class="flex items-center gap-3 font-bold text-2xl text-indigo-600">
+        <a href="{{ route('dashboard') }}" class="flex items-center">
             <x-application-logo class="block h-8 w-auto fill-current" />
-            <span>{{ config('app.name', 'Laravel') }}</span>
         </a>
         <button @click="sidebarOpen = false" class="p-2 -mr-2 text-gray-400 hover:bg-gray-100 rounded-xl focus:outline-none transition">
             <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">

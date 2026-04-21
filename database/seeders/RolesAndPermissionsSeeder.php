@@ -45,6 +45,8 @@ class RolesAndPermissionsSeeder extends Seeder
         // 2. Asisten
         $roleAsisten = \Spatie\Permission\Models\Role::firstOrCreate(['name' => 'asisten']);
         $roleAsisten->givePermissionTo([
+            'report_trash',
+            'report_broken_item',
             'view_broken_item_reports',
             'view_attendance',
         ]);

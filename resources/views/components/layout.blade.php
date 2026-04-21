@@ -6,7 +6,6 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'LabSI Bersih') }}</title>
-    <link rel="icon" href="{{ asset('logo.jpeg') }}" type="image/jpeg">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -32,11 +31,6 @@
             --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
             --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
             --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
         }
 
         * {
@@ -81,15 +75,18 @@
         }
 
         .logo-placeholder {
-            height: 80px;
+            width: 42px;
+            height: 42px;
+            background: linear-gradient(135deg, #6366F1 0%, #4F46E5 100%);
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-        }
-
-        .logo-placeholder img {
-            height: 100%;
-            width: auto;
+            color: white;
+            font-weight: 800;
+            font-size: 1.4rem;
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+            border: 2px solid rgba(255, 255, 255, 0.1);
         }
 
         .brand-name {
@@ -150,6 +147,8 @@
             position: sticky;
             top: 0;
             z-index: 40;
+            width: calc(100% - 260px);
+            margin-left: 260px;
         }
 
         .header-search {
@@ -204,9 +203,9 @@
         /* Main Content Area */
         .main-content {
             flex: 1;
+            margin-left: 260px;
             padding: 2rem;
             min-height: calc(100vh - 70px);
-            animation: fadeIn 0.5s ease-out;
         }
 
         .page-header {
@@ -247,7 +246,6 @@
         }
 
         .col-4 { grid-column: span 4; }
-        .col-6 { grid-column: span 6; }
         .col-8 { grid-column: span 8; }
         .col-12 { grid-column: span 12; }
 
@@ -319,7 +317,6 @@
         .badge-success { background-color: #DCFCE7; color: #166534; }
         .badge-warning { background-color: #FEF3C7; color: #92400E; }
         .badge-info { background-color: #E0E7FF; color: #3730A3; }
-        .badge-danger { background-color: #FEE2E2; color: #B91C1C; }
 
         /* Form Styles */
         .form-group {
@@ -350,9 +347,6 @@
         }
 
         .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
             padding: 0.75rem 1.5rem;
             border-radius: 8px;
             font-weight: 600;
@@ -360,7 +354,6 @@
             cursor: pointer;
             transition: all 0.2s ease;
             border: none;
-            gap: 0.5rem;
         }
 
         .btn-primary {
@@ -396,9 +389,8 @@
         <!-- Sidebar -->
         <aside class="sidebar">
             <div class="sidebar-header">
-                <div class="logo-placeholder">
-                    <img src="{{ asset('logo.jpeg') }}" alt="Logo">
-                </div>
+                <div class="logo-placeholder">L</div>
+                <span class="brand-name">LabSI</span>
             </div>
 
             <nav class="sidebar-nav">
@@ -407,32 +399,27 @@
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
                     <span>Dashboard</span>
                 </a>
-
-                @can('report_assistant_lateness')
                 <a href="{{ route('kelas.keterlambatan.index') }}" class="nav-item {{ request()->routeIs('kelas.keterlambatan.*') ? 'active' : '' }}">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
                     <span>Keterlambatan</span>
                 </a>
-                @endcan
-
-                @can('report_trash')
                 <a href="{{ route('kelas.sampah.index') }}" class="nav-item {{ request()->routeIs('kelas.sampah.*') ? 'active' : '' }}">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
                     <span>Lapor Sampah</span>
                 </a>
-                @endcan
-
-                @canany(['report_broken_item', 'view_broken_item_reports'])
                 <a href="{{ route('kelas.barang-rusak.index') }}" class="nav-item {{ request()->routeIs('kelas.barang-rusak.*') ? 'active' : '' }}">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
                     <span>Lapor Barang Rusak</span>
                 </a>
-                @endcanany
-
+                
                 <div class="nav-group-title" style="margin-top: 1.5rem;">Account</div>
                 <a href="{{ route('profile.edit') }}" class="nav-item {{ request()->routeIs('profile.*') ? 'active' : '' }}">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
                     <span>My Profile</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33 1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82 1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                    <span>Settings</span>
                 </a>
             </nav>
 
@@ -447,36 +434,33 @@
             </div>
         </aside>
 
-        <!-- Content Area -->
-        <div style="flex: 1; margin-left: 260px; display: flex; flex-direction: column; min-width: 0;">
-            <!-- Header -->
-            <header class="header" style="width: 100%; margin-left: 0; position: sticky;">
-                <div></div> <!-- Spacer for flex-between -->
+        <!-- Header -->
+        <header class="header">
+            <div class="header-search">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                <input type="text" placeholder="Search anything...">
+            </div>
 
-                <div class="header-actions">
-                    <a href="{{ route('profile.edit') }}" class="user-dropdown" style="text-decoration: none; color: inherit;">
-                        @auth
-                        <img src="https://ui-avatars.com/api/?name={{ urlencode(auth()->user()->displayName) }}&background=4F46E5&color=fff" alt="Avatar" class="avatar">
-                        <div style="display: flex; flex-direction: column;">
-                            <span style="font-size: 0.9rem; font-weight: 600;">{{ auth()->user()->displayName }}</span>
-                            <span style="font-size: 0.75rem; color: var(--text-muted); text-transform: capitalize;">{{ str_replace('_', ' ', auth()->user()->getRoleNames()->first() ?? 'Member') }}</span>
-                        </div>
-                        @endauth
-                    </a>
+            <div class="header-actions">
+                <div style="position: relative;">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+                    <span style="position: absolute; top: -2px; right: -2px; width: 10px; height: 10px; background-color: #EF4444; border-radius: 50%; border: 2px solid white;"></span>
                 </div>
-            </header>
 
-            <!-- Main Content -->
-            <main class="main-content" style="margin-left: 0;">
-                @isset($header)
-                    <div class="page-header">
-                        {{ $header }}
+                <div class="user-dropdown">
+                    <img src="https://ui-avatars.com/api/?name={{ urlencode(auth()->user()->name ?? 'User') }}&background=4F46E5&color=fff" alt="Avatar" class="avatar">
+                    <div style="display: flex; flex-direction: column;">
+                        <span style="font-size: 0.9rem; font-weight: 600;">{{ auth()->user()->name ?? 'Guest' }}</span>
+                        <span style="font-size: 0.75rem; color: var(--text-muted);">{{ auth()->user()->role ?? 'Member' }}</span>
                     </div>
-                @endisset
-                
-                {{ $slot }}
-            </main>
-        </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Content -->
+        <main class="main-content">
+            {{ $slot }}
+        </main>
     </div>
 </body>
 </html>

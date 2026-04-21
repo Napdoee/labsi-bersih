@@ -16,8 +16,37 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): View
     {
-        return view('profile.edit', [
+        // Sample dashboard data
+        $stats = [
+            'total_peminjaman' => 12,
+            'pending_reports' => 3,
+        ];
+
+        $activities = [
+            [
+                'title' => 'Peminjaman Lab RPL',
+                'date' => '20 May 2024',
+                'status' => 'Approved',
+                'status_type' => 'success'
+            ],
+            [
+                'title' => 'Laporan Kerusakan Mouse',
+                'date' => '18 May 2024',
+                'status' => 'Pending',
+                'status_type' => 'warning'
+            ],
+            [
+                'title' => 'Pengembalian Alat',
+                'date' => '15 May 2024',
+                'status' => 'Returned',
+                'status_type' => 'info'
+            ]
+        ];
+
+        return view('profile', [
             'user' => $request->user(),
+            'stats' => $stats,
+            'activities' => $activities,
         ]);
     }
 
