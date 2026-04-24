@@ -23,19 +23,16 @@ class KeterlambatanService
             ->get();
     }
 
+
+
     /**
-     * Menghitung keterlambatan dalam menit. pakai carbon dinda
+     * Mengecek apakah asisten sudah dilaporkan hari ini.
      */
-    public function hitungKeterlambatan(Jadwal $jadwal, string $waktuMasukAktual): int
+    public function sudahDilaporHariIni(int $idAsisten): bool
     {
-        $seharusnya = Carbon::parse($jadwal->waktu_mulai);
-        $aktual = Carbon::parse($waktuMasukAktual);
-
-        // false → tetap negatif jika datang lebih awal (aktual < seharusnya)
-        $selisihMenit = $seharusnya->diffInMinutes($aktual, false);
-
-        // Jika tidak terlambat kembalikan 0. Jika terlambat kembalikan menitnya dinda.
-        return max(0, (int) $selisihMenit);
+        return LaporanKeterlambatan::where('id_asisten', $idAsisten)
+            ->whereDate('waktu_lapor', Carbon::today())
+            ->exists();
     }
 
     /**
@@ -44,7 +41,9 @@ class KeterlambatanService
     public function simpanLaporan(array $data): LaporanKeterlambatan
     {
         $jadwal = Jadwal::findOrFail($data['id_jadwal']);
-        $menitTerlambat = $this->hitungKeterlambatan($jadwal, $data['waktu_masuk_aktual']);
+        
+        // Sekarang input 'waktu_masuk_aktual' berisi angka menit keterlambatan
+        $menitTerlambat = (int) $data['waktu_masuk_aktual'];
 
         return LaporanKeterlambatan::create([
             'id_matkul'     => $jadwal->id_matkul,

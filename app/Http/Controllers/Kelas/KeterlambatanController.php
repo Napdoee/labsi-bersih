@@ -87,12 +87,15 @@ class KeterlambatanController extends Controller
             return response()->json(['success' => false, 'message' => 'Jadwal tidak ditemukan.'], 404);
         }
 
-        $data = $jadwal->asistens->map(function ($asisten) {
+        $data = $jadwal->asistens->filter(function ($asisten) {
+            // Filter: Hanya asisten yang belum dilaporkan hari ini
+            return !$this->keterlambatanService->sudahDilaporHariIni($asisten->id_asisten);
+        })->map(function ($asisten) {
             return [
                 'id_asisten'   => $asisten->id_asisten,
                 'nama_asisten' => $asisten->nama_asisten,
             ];
-        });
+        })->values(); // Reset keys after filtering
 
         return response()->json([
             'success' => true,

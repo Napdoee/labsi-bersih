@@ -47,9 +47,9 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="form-label" for="waktu_masuk_aktual">Waktu Masuk Aktual</label>
-                    <input type="time" id="waktu_masuk_aktual" name="waktu_masuk_aktual" required disabled class="form-control" style="background-color: #F1F5F9;">
-                    <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.4rem;">Masukkan jam saat asisten benar-benar masuk ke ruangan.</p>
+                    <label class="form-label" for="waktu_masuk_aktual">Menit Keterlambatan</label>
+                    <input type="number" id="waktu_masuk_aktual" name="waktu_masuk_aktual" min="0" placeholder="Contoh: 15" required disabled class="form-control" style="background-color: #F1F5F9;">
+                    <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.4rem;">Masukkan jumlah menit keterlambatan asisten dari jadwal seharusnya.</p>
                 </div>
 
                 <div class="form-group">
@@ -158,7 +158,7 @@
                             });
                             enableField(asistenSelect);
                         } else {
-                            asistenSelect.innerHTML = '<option value="">-- Tidak ada asisten terdaftar --</option>';
+                            asistenSelect.innerHTML = '<option value="">-- Tidak ada asisten (mungkin sudah dilapor) --</option>';
                         }
                     })
                     .catch(error => console.error('Error fetching asisten:', error));

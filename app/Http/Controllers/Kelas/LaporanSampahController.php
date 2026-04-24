@@ -71,6 +71,17 @@ class LaporanSampahController extends Controller
     }
 
     /**
+     * Tampilkan detail laporan sampah.
+     */
+    public function show($id): View
+    {
+        $laporan = LaporanSampah::with(['ruangan', 'kelasPelapor', 'kelasPinalti', 'user'])
+            ->findOrFail($id);
+
+        return view('kelas.sampah.show', compact('laporan'));
+    }
+
+    /**
      * Endpoint AJAX: Ambil daftar ruangan berdasarkan jadwal hari ini.
      */
     public function ruanganHariIni(): JsonResponse

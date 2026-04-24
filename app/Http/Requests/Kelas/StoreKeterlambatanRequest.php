@@ -25,8 +25,8 @@ class StoreKeterlambatanRequest extends FormRequest
         return [
             'id_jadwal'          => ['required', 'integer', 'exists:jadwal,id_jadwal'],            
             'id_asisten'         => ['required', 'integer', 'exists:asisten,id_asisten'],
-            // Format waktu HH:MM (contoh: 08:15)
-            'waktu_masuk_aktual' => ['required', 'date_format:H:i'],
+            // Input berupa angka menit keterlambatan
+            'waktu_masuk_aktual' => ['required', 'integer', 'min:0'],
             'deskripsi'          => ['nullable', 'string', 'max:500'],
         ];
     }
@@ -41,8 +41,9 @@ class StoreKeterlambatanRequest extends FormRequest
             'id_jadwal.exists'            => 'Jadwal yang dipilih tidak valid.',
             'id_asisten.required'         => 'Asisten wajib dipilih.',
             'id_asisten.exists'           => 'Asisten yang dipilih tidak valid.',
-            'waktu_masuk_aktual.required' => 'Waktu masuk asisten wajib diisi.',
-            'waktu_masuk_aktual.date_format' => 'Format waktu tidak valid (harus HH:MM).',
+            'waktu_masuk_aktual.required' => 'Menit keterlambatan wajib diisi.',
+            'waktu_masuk_aktual.integer'  => 'Menit keterlambatan harus berupa angka.',
+            'waktu_masuk_aktual.min'      => 'Menit keterlambatan tidak boleh negatif.',
         ];
     }
 }
