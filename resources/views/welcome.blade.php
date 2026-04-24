@@ -140,7 +140,7 @@
                     </p>
                 </div>
                 <div class="relative lg:-ml-px -mb-px lg:mb-0 rounded-t-lg lg:rounded-t-none lg:rounded-r-lg w-full lg:w-[438px] shrink-0 overflow-hidden flex items-center justify-center p-8">
-                    <img src="{{ asset('logo.jpeg') }}" class="w-auto h-32 lg:h-48" alt="Logo">
+                    <img src="{{ asset('logo.png') }}" class="w-auto h-32 lg:h-48" alt="Logo">
                     <div class="absolute inset-0 rounded-t-lg lg:rounded-t-none lg:rounded-r-lg shadow-[inset_0px_0px_0px_1px_rgba(26,26,0,0.16)] dark:shadow-[inset_0px_0px_0px_1px_#fffaed2d]"></div>
                 </div>
             </main>

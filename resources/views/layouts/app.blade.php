@@ -6,7 +6,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'LabSI Bersih') }}</title>
-    <link rel="icon" href="{{ asset('logo.jpeg') }}" type="image/jpeg">
+    <link rel="icon" href="{{ asset('logo.png') }}" type="image/jpeg">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -397,7 +397,7 @@
         <aside class="sidebar">
             <div class="sidebar-header">
                 <div class="logo-placeholder">
-                    <img src="{{ asset('logo.jpeg') }}" alt="Logo">
+                    <img src="{{ asset('logo.png') }}" alt="Logo">
                 </div>
             </div>
 

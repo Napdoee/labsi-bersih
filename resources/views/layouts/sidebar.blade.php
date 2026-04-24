@@ -9,7 +9,7 @@
     <!-- Logo -->
     <div class="flex items-center h-20 px-8 border-b border-gray-50">
         <a href="{{ route('dashboard') }}" class="flex items-center justify-center w-full">
-            <img src="{{ asset('logo.jpeg') }}" alt="Logo" class="w-auto h-20" />
+            <img src="{{ asset('logo.png') }}" alt="Logo" class="w-auto h-20" />
         </a>
     </div>
     
@@ -32,7 +32,7 @@
             Keterlambatan
         </a>
         @endif
-
+        
         @if (Auth::user()->hasAnyRole(['ketua_tingkat', 'asisten']))
         <a href="{{ route('kelas.sampah.index') }}" class="{{ request()->routeIs('kelas.sampah.*') ? $activeClasses : $inactiveClasses }}">
             <svg class="w-5 h-5 {{ request()->routeIs('kelas.sampah.*') ? 'text-indigo-600' : 'text-gray-400' }}" fill="none" viewBox="0 0 24 24" stroke="currentColor">
