@@ -13,6 +13,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
+    <!-- Scripts -->
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+
     <!-- Styles -->
     <style>
         :root {
@@ -69,8 +72,17 @@
             height: 100vh;
             left: 0;
             top: 0;
-            z-index: 50;
-            transition: all 0.3s ease;
+            z-index: 100;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @media (max-width: 1024px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+            .sidebar.open {
+                transform: translateX(0);
+            }
         }
 
         .sidebar-header {
@@ -81,7 +93,7 @@
         }
 
         .logo-placeholder {
-            height: 80px;
+            height: 60px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -102,6 +114,7 @@
         .sidebar-nav {
             flex: 1;
             padding: 1rem;
+            overflow-y: auto;
         }
 
         .nav-group-title {
@@ -137,6 +150,22 @@
             box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2);
         }
 
+        /* Content Wrapper */
+        .content-wrapper {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            margin-left: 260px;
+            transition: all 0.3s ease;
+        }
+
+        @media (max-width: 1024px) {
+            .content-wrapper {
+                margin-left: 0;
+            }
+        }
+
         /* Header Styles */
         .header {
             height: 70px;
@@ -146,36 +175,25 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 2rem;
+            padding: 0 1.5rem;
             position: sticky;
             top: 0;
             z-index: 40;
         }
 
-        .header-search {
-            background-color: rgba(0, 0, 0, 0.03);
-            border-radius: 10px;
-            padding: 0.5rem 1rem;
-            width: 300px;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            border: 1px solid transparent;
-            transition: all 0.2s ease;
-        }
-
-        .header-search:focus-within {
-            background-color: white;
-            border-color: var(--primary-light);
-            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
-        }
-
-        .header-search input {
+        .mobile-toggle {
+            display: none;
             background: none;
             border: none;
-            outline: none;
-            width: 100%;
-            font-size: 0.9rem;
+            color: var(--text-main);
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        @media (max-width: 1024px) {
+            .mobile-toggle {
+                display: block;
+            }
         }
 
         .header-actions {
@@ -203,10 +221,14 @@
 
         /* Main Content Area */
         .main-content {
-            flex: 1;
-            padding: 2rem;
-            min-height: calc(100vh - 70px);
+            padding: 1.5rem;
             animation: fadeIn 0.5s ease-out;
+        }
+
+        @media (min-width: 768px) {
+            .main-content {
+                padding: 2rem;
+            }
         }
 
         .page-header {
@@ -214,9 +236,15 @@
         }
 
         .page-title {
-            font-size: 1.75rem;
+            font-size: 1.5rem;
             font-weight: 700;
             color: var(--text-main);
+        }
+
+        @media (min-width: 768px) {
+            .page-title {
+                font-size: 1.75rem;
+            }
         }
 
         .page-subtitle {
@@ -243,13 +271,30 @@
         .grid-container {
             display: grid;
             grid-template-columns: repeat(12, 1fr);
-            gap: 1.5rem;
+            gap: 1rem;
         }
 
-        .col-4 { grid-column: span 4; }
-        .col-6 { grid-column: span 6; }
-        .col-8 { grid-column: span 8; }
-        .col-12 { grid-column: span 12; }
+        @media (min-width: 768px) {
+            .grid-container {
+                gap: 1.5rem;
+            }
+        }
+
+        /* Responsive Grid Spans */
+        .col-4, .col-6, .col-8, .col-12 {
+            grid-column: span 12;
+        }
+
+        @media (min-width: 768px) {
+            .col-4 { grid-column: span 6; }
+            .col-6 { grid-column: span 6; }
+            .col-8 { grid-column: span 12; }
+        }
+
+        @media (min-width: 1200px) {
+            .col-4 { grid-column: span 4; }
+            .col-8 { grid-column: span 8; }
+        }
 
         .stat-card {
             display: flex;
@@ -267,46 +312,37 @@
             font-size: 1.25rem;
         }
 
-        .stat-info .stat-value {
-            font-size: 1.5rem;
-            font-weight: 700;
-            display: block;
-        }
-
         .stat-info .stat-label {
             font-size: 0.85rem;
             color: var(--text-muted);
         }
 
-        /* Table Styles */
-        .table-container {
+        /* Utility Classes */
+        .flex-header {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
             width: 100%;
-            overflow-x: auto;
         }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
+        @media (min-width: 640px) {
+            .flex-header {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+            }
         }
 
-        th {
-            text-align: left;
+        .alert {
             padding: 1rem;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            color: var(--text-muted);
-            border-bottom: 1px solid var(--border);
-        }
-
-        td {
-            padding: 1rem;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            border: 1px solid transparent;
             font-size: 0.9rem;
-            border-bottom: 1px solid var(--border);
         }
 
-        tr:last-child td {
-            border-bottom: none;
-        }
+        .alert-success { background-color: #DCFCE7; border-color: #86EFAC; color: #166534; }
+        .alert-error { background-color: #FEF2F2; border-color: #FECACA; color: #991B1B; }
 
         /* Badge Styles */
         .badge {
@@ -314,6 +350,7 @@
             border-radius: 20px;
             font-size: 0.75rem;
             font-weight: 600;
+            display: inline-block;
         }
 
         .badge-success { background-color: #DCFCE7; color: #166534; }
@@ -373,32 +410,65 @@
             box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2);
         }
 
+        /* Table Styles */
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 600px;
+        }
+
+        th {
+            text-align: left;
+            padding: 1rem;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            border-bottom: 1px solid var(--border);
+        }
+
+        td {
+            padding: 1rem;
+            font-size: 0.9rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        /* Sidebar Overlay */
+        .sidebar-overlay {
+            position: fixed;
+            inset: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            z-index: 90;
+            display: none;
+        }
+
         @media (max-width: 1024px) {
-            .sidebar {
-                width: 80px;
-            }
-            .brand-name, .nav-item span, .nav-group-title {
-                display: none;
-            }
-            .header, .main-content {
-                margin-left: 80px;
-                width: calc(100% - 80px);
-            }
-            .sidebar-header {
-                justify-content: center;
-                padding: 1.5rem 0.5rem;
+            .sidebar-overlay.show {
+                display: block;
             }
         }
     </style>
 </head>
-<body>
+<body x-data="{ sidebarOpen: false }" @keydown.escape="sidebarOpen = false">
     <div class="dashboard-container">
+        <!-- Sidebar Overlay (Mobile Only) -->
+        <div class="sidebar-overlay" :class="{ 'show': sidebarOpen }" @click="sidebarOpen = false"></div>
+
         <!-- Sidebar -->
-        <aside class="sidebar">
+        <aside class="sidebar" :class="{ 'open': sidebarOpen }">
             <div class="sidebar-header">
                 <div class="logo-placeholder">
                     <img src="{{ asset('logo.png') }}" alt="Logo">
                 </div>
+                <button class="mobile-toggle" @click="sidebarOpen = false" style="margin-left: auto; color: white;">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
             </div>
 
             <nav class="sidebar-nav">
@@ -448,16 +518,18 @@
         </aside>
 
         <!-- Content Area -->
-        <div style="flex: 1; margin-left: 260px; display: flex; flex-direction: column; min-width: 0;">
+        <div class="content-wrapper">
             <!-- Header -->
-            <header class="header" style="width: 100%; margin-left: 0; position: sticky;">
-                <div></div> <!-- Spacer for flex-between -->
+            <header class="header">
+                <button class="mobile-toggle" @click="sidebarOpen = true">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                </button>
 
                 <div class="header-actions">
                     <a href="{{ route('profile.edit') }}" class="user-dropdown" style="text-decoration: none; color: inherit;">
                         @auth
                         <img src="https://ui-avatars.com/api/?name={{ urlencode(auth()->user()->displayName) }}&background=4F46E5&color=fff" alt="Avatar" class="avatar">
-                        <div style="display: flex; flex-direction: column;">
+                        <div style="display: none; flex-direction: column;" class="md:flex">
                             <span style="font-size: 0.9rem; font-weight: 600;">{{ auth()->user()->displayName }}</span>
                             <span style="font-size: 0.75rem; color: var(--text-muted); text-transform: capitalize;">{{ str_replace('_', ' ', auth()->user()->getRoleNames()->first() ?? 'Member') }}</span>
                         </div>
@@ -467,7 +539,7 @@
             </header>
 
             <!-- Main Content -->
-            <main class="main-content" style="margin-left: 0;">
+            <main class="main-content">
                 @isset($header)
                     <div class="page-header">
                         {{ $header }}

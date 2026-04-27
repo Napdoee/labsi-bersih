@@ -30,7 +30,7 @@
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path></svg>
                 </div>
                 <div class="stat-info">
-                    <span class="stat-value">{{ $reportsInRooms->count() }}</span>
+                    <span class="stat-value">{{ $reportsInRooms->where('id_user', auth()->id())->count() }}</span>
                     <span class="stat-label">Barang Rusak di Lab Jaga</span>
                 </div>
             </div>
@@ -100,15 +100,21 @@
             <h3 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 1.25rem;">Info Terbaru</h3>
             <div style="display: flex; flex-direction: column; gap: 1rem;">
                 @if($isAsisten)
-                    <div style="padding: 1rem; background-color: #FFFBEB; border-radius: 12px; border: 1px solid #FEF3C7;">
-                        <span style="display: block; font-size: 0.8rem; color: #92400E; margin-bottom: 0.25rem;">Laporan Barang Rusak</span>
-                        @if($reportsInRooms->first())
-                            <span style="font-weight: 600; display: block; color: #92400E;">{{ $reportsInRooms->first()->nama_barang }} ({{ $reportsInRooms->first()->ruangan->nama_ruangan }})</span>
-                            <span style="font-size: 0.85rem; color: #B45309;">Status: {{ $reportsInRooms->first()->status_laporan }}</span>
-                        @else
+                    @php
+                        $userReport = $reportsInRooms->where('id_user', auth()->id())->first();
+                    @endphp
+                    @if($userReport)
+                        <div style="padding: 1rem; background-color: #FFFBEB; border-radius: 12px; border: 1px solid #FEF3C7;">
+                            <span style="display: block; font-size: 0.8rem; color: #92400E; margin-bottom: 0.25rem;">Laporan Barang Rusak</span>
+                            <span style="font-weight: 600; display: block; color: #92400E;">{{ $userReport->nama_barang }} ({{ $userReport->ruangan->nama_ruangan }})</span>
+                            <span style="font-size: 0.85rem; color: #B45309;">Status: {{ $userReport->status_laporan }}</span>
+                        </div>
+                    @elseif($reportsInRooms->isEmpty())
+                        <div style="padding: 1rem; background-color: #FFFBEB; border-radius: 12px; border: 1px solid #FEF3C7;">
+                            <span style="display: block; font-size: 0.8rem; color: #92400E; margin-bottom: 0.25rem;">Laporan Barang Rusak</span>
                             <span style="font-weight: 600; color: #B45309;">Semua barang normal.</span>
-                        @endif
-                    </div>
+                        </div>
+                    @endif
                 @else
                     <div style="padding: 1rem; background-color: #F8FAFC; border-radius: 12px; border: 1px solid var(--border);">
                         <span style="display: block; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.25rem;">Laporan Terakhir</span>
@@ -119,6 +125,22 @@
                             <span style="font-weight: 600; color: var(--text-muted);">Tidak ada laporan.</span>
                         @endif
                     </div>
+
+                    @if($sampahReports->isNotEmpty())
+                        <div style="padding: 1rem; background-color: #FEF2F2; border-radius: 12px; border: 1px solid #FEE2E2;">
+                            <span style="display: block; font-size: 0.8rem; color: #991B1B; margin-bottom: 0.25rem;">Pinalti Sampah!</span>
+                            <div style="display: flex; align-items: center; gap: 0.5rem; color: #991B1B;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                                <span style="font-weight: 700; font-size: 0.9rem;">Kelas Terkena Pinalti</span>
+                            </div>
+                            <span style="font-size: 0.85rem; color: #B91C1C; display: block; margin-top: 0.25rem;">
+                                Pelanggaran sampah ditemukan di <strong>{{ $sampahReports->first()->ruangan->nama_ruangan }}</strong>.
+                            </span>
+                            <a href="{{ route('kelas.sampah.show', $sampahReports->first()->id_laporan_sampah) }}" style="display: inline-block; margin-top: 0.75rem; font-size: 0.8rem; font-weight: 700; color: #991B1B; text-decoration: underline;">
+                                Lihat Detail Laporan
+                            </a>
+                        </div>
+                    @endif
                 @endif
                 
                 <div style="margin-top: 0.5rem; display: flex; flex-direction: column; gap: 0.75rem;">

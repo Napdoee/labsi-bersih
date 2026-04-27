@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+        <div class="flex-header">
             <div>
                 <h1 class="page-title">Riwayat Keterlambatan Asisten</h1>
                 <p class="page-subtitle">Pantau tingkat kedisiplinan asisten di kelas Anda.</p>
@@ -13,7 +13,7 @@
     </x-slot>
 
     @if (session('success'))
-        <div class="card" style="background-color: #DCFCE7; border-color: #86EFAC; color: #166534; margin-bottom: 1.5rem; padding: 1rem;">
+        <div class="alert alert-success">
             {{ session('success') }}
         </div>
     @endif

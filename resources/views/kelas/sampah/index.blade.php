@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+        <div class="flex-header">
             <div>
                 <h1 class="page-title">Riwayat Laporan Sampah</h1>
                 <p class="page-subtitle">Daftar laporan kebersihan ruangan praktikum.</p>
@@ -13,7 +13,7 @@
     </x-slot>
 
     @if (session('success'))
-        <div class="card" style="background-color: #DCFCE7; border-color: #86EFAC; color: #166534; margin-bottom: 1.5rem; padding: 1rem;">
+        <div class="alert alert-success">
             {{ session('success') }}
         </div>
     @endif
@@ -26,9 +26,8 @@
                         <th>Waktu Lapor</th>
                         <th>Ruangan</th>
                         <th>Foto</th>
-                        <th>Kelas Pinalti</th>
-                        <th>Status</th>
                         <th>Keterangan</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -43,29 +42,16 @@
                                 <span style="color: var(--text-muted);">-</span>
                                 @endif
                             </td>
-                            <td>
-                                @if($item->kelasPinalti)
-                                    <span class="badge badge-danger" style="background-color: #FEE2E2; color: #B91C1C;">{{ $item->kelasPinalti->nama_kelas }}</span>
-                                @else
-                                    <span class="badge" style="background-color: #F1F5F9; color: #64748B;">-</span>
-                                @endif
-                            </td>
-                            <td>
-                                @if($item->status === 'menunggu')
-                                    <span class="badge badge-warning">Menunggu</span>
-                                @elseif($item->status === 'diverifikasi')
-                                    <span class="badge badge-success">Diverifikasi</span>
-                                @else
-                                    <span class="badge badge-danger">Ditolak</span>
-                                @endif
-                            </td>
                             <td style="color: var(--text-muted); font-size: 0.85rem;">
                                 {{ $item->deskripsi ?? '-' }}
+                            </td>
+                            <td>
+                                <a href="{{ route('kelas.sampah.show', $item->id_laporan_sampah) }}" style="color: var(--primary); font-size: 0.85rem; font-weight: 700; text-decoration: none;">Detail</a>
                             </td>
                         </tr>
                     @empty
                     <tr>
-                        <td colspan="6" style="text-align: center; color: var(--text-muted); padding: 3rem;">
+                        <td colspan="7" style="text-align: center; color: var(--text-muted); padding: 3rem;">
                             Belum ada data laporan sampah.
                         </td>
                     </tr>

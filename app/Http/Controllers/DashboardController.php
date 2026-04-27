@@ -61,13 +61,20 @@ class DashboardController extends Controller
                     ->latest('waktu_lapor')
                     ->get();
                 
-                $totalPinalti = $keterlambatans->count();
+                // Get trash reports where this class is penalized
+                $sampahReports = LaporanSampah::where('id_kelas_pinalti', $kelas->id_kelas)
+                    ->with(['ruangan'])
+                    ->latest('waktu_lapor')
+                    ->get();
+                
+                $totalPinalti = $keterlambatans->count() + $sampahReports->count();
             }
         }
 
         return view('dashboard', [
             'jadwals' => $jadwals,
             'keterlambatans' => $keterlambatans,
+            'sampahReports' => $sampahReports ?? collect(),
             'reportsInRooms' => $reportsInRooms,
             'totalPinalti' => $totalPinalti,
             'isAsisten' => $isAsisten,

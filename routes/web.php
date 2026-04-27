@@ -40,6 +40,7 @@ Route::middleware(['auth', 'role:ketua_tingkat|asisten'])->prefix('kelas')->name
         Route::get('/', [\App\Http\Controllers\Kelas\LaporanSampahController::class, 'index'])->name('index');
         Route::get('/buat', [\App\Http\Controllers\Kelas\LaporanSampahController::class, 'create'])->name('create');
         Route::post('/', [\App\Http\Controllers\Kelas\LaporanSampahController::class, 'store'])->name('store');
+        Route::get('/{id}', [\App\Http\Controllers\Kelas\LaporanSampahController::class, 'show'])->name('show');
 
         // Endpoint AJAX
         Route::get('/ruangan-hari-ini', [\App\Http\Controllers\Kelas\LaporanSampahController::class, 'ruanganHariIni'])->name('ruangan-hari-ini');

@@ -9,7 +9,7 @@
             @csrf
 
             @if ($errors->any())
-                <div style="background-color: #FEE2E2; border: 1px solid #F87171; color: #991B1B; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem;">
+                <div class="alert alert-error">
                     <ul style="list-style: disc; padding-left: 1.25rem; font-size: 0.9rem;">
                         @foreach ($errors->all() as $error)
                             <li>{{ $error }}</li>
@@ -78,9 +78,9 @@
                 </div>
             </div>
 
-            <div style="display: flex; justify-content: flex-end; align-items: center; gap: 1.5rem; margin-top: 2rem;">
-                <a href="{{ route('kelas.barang-rusak.index') }}" style="color: var(--text-muted); font-size: 0.9rem; text-decoration: none; font-weight: 500;">Batal</a>
-                <button type="submit" id="btn-submit" disabled class="btn" style="background-color: #CBD5E1; color: white; cursor: not-allowed;">
+            <div class="flex-header" style="margin-top: 2rem;">
+                <a href="{{ route('kelas.barang-rusak.index') }}" class="btn" style="border: 1px solid var(--border); text-decoration: none;">Batal</a>
+                <button type="submit" id="btn-submit" disabled class="btn btn-primary" style="opacity: 0.5; cursor: not-allowed;">
                     Kirim Laporan
                 </button>
             </div>
@@ -104,13 +104,13 @@
 
             function enableSubmit() {
                 btnSubmit.disabled = false;
-                btnSubmit.style.backgroundColor = 'var(--primary)';
+                btnSubmit.style.opacity = '1';
                 btnSubmit.style.cursor = 'pointer';
             }
 
             function disableSubmit() {
                 btnSubmit.disabled = true;
-                btnSubmit.style.backgroundColor = '#CBD5E1';
+                btnSubmit.style.opacity = '0.5';
                 btnSubmit.style.cursor = 'not-allowed';
             }
 
